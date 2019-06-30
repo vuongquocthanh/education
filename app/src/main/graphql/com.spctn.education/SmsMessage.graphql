@@ -1,0 +1,16 @@
+query getSmsMessages($page: Int, $academicid: Int)
+{paginatedAcademicSmsmessages(page:$page, academicid:$academicid){
+    page
+    pages
+    hasNext
+    hasPrev
+    objects{
+        id
+        academic{
+            id
+        }
+        content
+        phone
+    }
+}
+}

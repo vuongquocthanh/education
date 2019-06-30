@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Education</string>
+    <string name="title_message">Messages</string>
+    <string name="logout">Đăng xuất</string>
+</resources>

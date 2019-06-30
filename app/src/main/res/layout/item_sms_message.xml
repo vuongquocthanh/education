@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_marginRight="8dp">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+                android:id="@+id/tvSmsMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_component"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text="Hoang tung"
+                android:textColor="@color/colorBlack"
+                android:textSize="@dimen/text_size_normal"/>
+
+        <TextView
+                android:id="@+id/tvPhoneNum"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_component"
+                android:paddingRight="@dimen/margin_component"
+                android:paddingBottom="@dimen/margin_component"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:text="0296106719"
+                android:textSize="@dimen/text_size_small"/>
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

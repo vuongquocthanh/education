@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="height_view">35dp</dimen>
+    <dimen name="margin_component">8dp</dimen>
+    <dimen name="margin_comonent_login">16dp</dimen>
+    <dimen name="margin_header_item">1dp</dimen>
+    <dimen name="text_size_note">11sp</dimen>
+    <dimen name="text_size_small">12sp</dimen>
+    <dimen name="text_size_normal">16sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="height_toolbar">48dp</dimen>
+    <dimen name="height_view_item">45dp</dimen>
+    <dimen name="title_size">20sp</dimen>
+</resources>
