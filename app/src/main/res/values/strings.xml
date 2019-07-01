@@ -2,4 +2,8 @@
     <string name="app_name">Education</string>
     <string name="title_message">Messages</string>
     <string name="logout">Đăng xuất</string>
+    <string name="confirm">Xác nhận</string>
+    <string name="confirm_message">Bạn thực sự muốn gửi tin nhắn?</string>
+    <string name="send">Gửi</string>
+    <string name="cancel">Huỷ</string>
 </resources>
