@@ -5,13 +5,11 @@ import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.PopupMenu
-import android.support.v7.widget.RecyclerView
 import android.telephony.SmsManager
 import android.util.Log
 import android.view.View
@@ -25,7 +23,6 @@ import com.spctn.education.view.adapter.SmsMessageAdapter
 import com.spctn.education.view.dialog.ConfirmSendSMSDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_toolbar.*
-import java.lang.Exception
 
 class MainActivity : BaseActivity(), SmsMessageViewPresenter {
     private lateinit var confirmSendSMSDialog: ConfirmSendSMSDialog
@@ -40,6 +37,8 @@ class MainActivity : BaseActivity(), SmsMessageViewPresenter {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        checkPermission()
 
         smsMessagePresenter.onAttach(this)
         progressLoading = progressLoadingDialog(this)
@@ -66,7 +65,6 @@ class MainActivity : BaseActivity(), SmsMessageViewPresenter {
 
     override fun showSmsMessages(message: List<GetSmsMessagesQuery.Object>) {
         srlSmsMessage.isRefreshing = false
-        adapter.clearAllMessageSelected()
         progressLoading?.dismiss()
         smsMessages.clear()
         smsMessages.addAll(message)
@@ -91,6 +89,8 @@ class MainActivity : BaseActivity(), SmsMessageViewPresenter {
         ivMore.setOnClickListener { moreClick() }
         btnSend.setOnClickListener { btSendClick() }
         srlSmsMessage.setOnRefreshListener {
+            smsMessagesSelected.clear()
+            adapter.clearAllMessageSelected()
             srlSmsMessage.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark)
             loadSmsMessage()
         }
@@ -113,19 +113,17 @@ class MainActivity : BaseActivity(), SmsMessageViewPresenter {
 
     private fun checkPermission() {
         if (ContextCompat.checkSelfPermission(
-                this,
-                Manifest.permission.SEND_SMS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
+                this, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.SEND_SMS)) {
 
             } else {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.SEND_SMS), SMS_PERMISSION_CODE)
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.SEND_SMS, Manifest.permission.READ_PHONE_STATE), SMS_PERMISSION_CODE)
             }
         }
     }
 
     private fun sendSMS(phone: String, message: String) {
+        Log.d("PHONELOG", phone)
         try {
             val smsManager = SmsManager.getDefault()
             smsManager.sendTextMessage(phone, null, message, null, null)
@@ -136,21 +134,17 @@ class MainActivity : BaseActivity(), SmsMessageViewPresenter {
     }
 
     private fun btSendClick() {
-        checkPermission()
         confirmSendSMSDialog = ConfirmSendSMSDialog(object : ConfirmSendSMSDialog.ConfirmSendSMSListener {
             override fun btSendDialogClick() {
-                if (smsMessagesSelected.isNullOrEmpty()) {
+                smsMessagesSelected.addAll(adapter.getAllMessageSelected())
+                if (smsMessagesSelected.size <= 0) {
                     smsMessagesSelected.addAll(smsMessages)
-                    for (i in 0 until smsMessagesSelected.size) {
-                        sendSMS(smsMessagesSelected[i].phone()!!, smsMessagesSelected[i].content()!!)
-                    }
-                } else {
-                    smsMessagesSelected.clear()
-                    smsMessagesSelected.addAll(adapter.getAllMessageSelected())
-                    for (i in 0 until smsMessagesSelected.size) {
-                        sendSMS(smsMessagesSelected[i].phone()!!, smsMessagesSelected[i].content()!!)
-                    }
                 }
+
+                for (i in 0 until smsMessagesSelected.size) {
+                    sendSMS(smsMessagesSelected[i].phone()!!, smsMessagesSelected[i].content()!!)
+                }
+
                 Toast.makeText(this@MainActivity, "Đã gửi tin nhắn thành công!", Toast.LENGTH_LONG).show()
             }
         })
