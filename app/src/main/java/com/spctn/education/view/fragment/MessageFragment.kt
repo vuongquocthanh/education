@@ -17,6 +17,7 @@ import android.widget.Toast
 import com.spctn.education.GetSmsMessagesQuery
 import com.spctn.education.R
 import com.spctn.education.base.BaseFragment
+import com.spctn.education.enum.MessageStatus
 import com.spctn.education.mvp.presenter.SmsMessagePresenter
 import com.spctn.education.mvp.view.SmsMessageViewPresenter
 import com.spctn.education.view.adapter.SmsMessageAdapter
@@ -33,6 +34,7 @@ class MessageFragment : BaseFragment(), SmsMessageViewPresenter {
     private var smsMessages: ArrayList<GetSmsMessagesQuery.Object> = ArrayList()
     private var ids:ArrayList<String> = ArrayList()
     private var smsMessagesSelected: ArrayList<GetSmsMessagesQuery.Object> = ArrayList()
+
     private var page: Long? = 1
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_message, container, false)
@@ -52,13 +54,11 @@ class MessageFragment : BaseFragment(), SmsMessageViewPresenter {
         rvSmsMessage.addItemDecoration(DividerItemDecoration(context!!, LinearLayoutManager(context!!).orientation))
         rvSmsMessage.adapter = adapter
 
-//        ivBack.visibility = View.INVISIBLE
-
         setEventClick()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
         smsMessagePresenter.disapose()
     }
 
@@ -68,6 +68,10 @@ class MessageFragment : BaseFragment(), SmsMessageViewPresenter {
         smsMessages.clear()
         smsMessages.addAll(message)
         adapter.notifyDataSetChanged()
+    }
+
+    override fun showUpdateMessagesStatusSuccess() {
+        Toast.makeText(mActivity, "Gửi tin nhắn thành công", Toast.LENGTH_LONG).show()
     }
 
     override fun showError(message: String) {
@@ -138,7 +142,7 @@ class MessageFragment : BaseFragment(), SmsMessageViewPresenter {
                     sendSMS(smsMessagesSelected[i].id(),smsMessagesSelected[i].phone()!!, smsMessagesSelected[i].content()!!)
                 }
 
-                Toast.makeText(activity!!, "Đã gửi tin nhắn thành công!", Toast.LENGTH_LONG).show()
+                smsMessagePresenter.updateMessagesStatus(ids, MessageStatus.XULY_THANHCONG.value)
             }
         })
         confirmSendSMSDialog.show(activity!!.supportFragmentManager, "Dialog")

@@ -4,6 +4,7 @@ import android.util.Log
 import com.apollographql.apollo.api.Response
 import com.apollographql.apollo.rx2.Rx2Apollo
 import com.spctn.education.GetSmsMessagesQuery
+import com.spctn.education.UpdateMessagesStatusMutation
 import com.spctn.education.api.ApiUtil
 import com.spctn.education.mvp.Presenter
 import com.spctn.education.mvp.View
@@ -29,6 +30,29 @@ class SmsMessagePresenter: Presenter {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onReceiver, this::onError))
+    }
+
+    fun updateMessagesStatus(ids: ArrayList<String>, status: String){
+        val updateMessagesStatusMutation: UpdateMessagesStatusMutation = UpdateMessagesStatusMutation.builder()
+            .ids(ids)
+            .status(status)
+            .build()
+
+        val getUpdateMessagesStatusCall = ApiUtil.apolloClient()
+            .mutate(updateMessagesStatusMutation)
+
+        compositeDisposable.add(Rx2Apollo.from(getUpdateMessagesStatusCall)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(this::onReceiverUpdateMessagesStatus, this::onError))
+    }
+
+    private fun onReceiverUpdateMessagesStatus(response: Response<UpdateMessagesStatusMutation.Data>){
+        if (response.data()!!.updatelistsmsstatus()!!.ok()!!){
+            viewPresenter.showUpdateMessagesStatusSuccess()
+        }else{
+            viewPresenter.showError("Oop! Có lỗi xảy ra")
+        }
     }
 
     private fun onReceiver(response: Response<GetSmsMessagesQuery.Data>){

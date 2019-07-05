@@ -5,4 +5,5 @@ import com.spctn.education.mvp.View
 
 interface SmsMessageViewPresenter: View {
     fun showSmsMessages(message: List<GetSmsMessagesQuery.Object>)
+    fun showUpdateMessagesStatusSuccess()
 }
