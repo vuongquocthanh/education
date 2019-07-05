@@ -6,4 +6,9 @@
     <string name="confirm_message">Bạn thực sự muốn gửi tin nhắn?</string>
     <string name="send">Gửi</string>
     <string name="cancel">Huỷ</string>
+    <string name="thpt">THPT Phan Chu Trinh</string>
+    <string name="email_thpt">thpt-phanchutrinh@haiphong.edu.vn</string>
+    <string name="messageManage">Message Management</string>
+    <string name="setting">Setting</string>
+    <string name="about">About</string>
 </resources>

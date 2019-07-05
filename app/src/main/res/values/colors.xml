@@ -13,4 +13,6 @@
     <color name="colorYelow">#f9d50d</color>
     <color name="colorGreen">@android:color/holo_green_dark</color>
     <color name="colorRed">@android:color/holo_red_dark</color>
+    <color name="colorDrawerMenu">#0076BD</color>
+    <color name="colorOnline">#2BFCB3</color>
 </resources>

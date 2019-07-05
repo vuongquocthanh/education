@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
 import com.spctn.education.LoginMutation
+import com.spctn.education.Main2Activity
 import com.spctn.education.R
 import com.spctn.education.base.BaseActivity
 import com.spctn.education.mvp.presenter.LoginPresenter
@@ -49,7 +50,7 @@ class LoginActivity : BaseActivity(), LoginViewPresenter {
             tinyDB.putString(Constant.PASS_WORD, password)
         }
 
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, Main2Activity::class.java))
     }
 
     override fun showError(message: String) {

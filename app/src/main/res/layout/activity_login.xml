@@ -64,6 +64,7 @@
                         android:textSize="14sp"
                         android:paddingLeft="8dp"
                         android:singleLine="true"/>
+
                 <ImageView
                         android:layout_width="@dimen/height_view"
                         android:layout_height="match_parent"
