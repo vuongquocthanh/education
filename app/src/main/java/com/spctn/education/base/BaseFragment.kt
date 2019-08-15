@@ -8,16 +8,21 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.support.v4.app.Fragment
 import com.spctn.education.R
+import com.spctn.education.util.TinyDB
 import com.wang.avi.AVLoadingIndicatorView
 
 abstract class BaseFragment : Fragment() {
     protected var mContext: Context? = null
     protected lateinit var mActivity: Activity
 
+    lateinit var tinyDB: TinyDB
+
     override fun onAttach(context: Context?) {
         super.onAttach(context)
         if (context is Activity) mActivity = context
         mContext = context
+
+        tinyDB = TinyDB(context!!)
     }
 
     override fun onDetach() {

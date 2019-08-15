@@ -34,7 +34,7 @@ class LoginPresenter : Presenter{
     }
 
     private fun onReceiver(response: Response<LoginMutation.Data>){
-        Log.d("LOGINLOG", "respone: "+ response.toString())
+        Log.d("LOGINLOG", "respone: $response")
         if(response.data()!!.tokenAuth() != null){
             viewPresenter.loginSuccess(response.data()!!.tokenAuth()!!)
         }else{

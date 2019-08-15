@@ -3,9 +3,11 @@ package com.spctn.education.view.activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.Gravity
 import com.spctn.education.R
 import com.spctn.education.base.BaseActivity
+import com.spctn.education.util.Constant
 import com.spctn.education.view.fragment.MessageFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.layout_drawer_menu.*

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.activity.SchoolChoseActivity">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chọn trường học"
+            android:padding="@dimen/margin_component"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"/>
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvSchool"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Chọn niên khoá"
+            android:padding="@dimen/margin_component"
+            android:textColor="@color/colorBlack"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"/>
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvSchoolYear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>

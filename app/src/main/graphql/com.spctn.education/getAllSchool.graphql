@@ -1,0 +1,10 @@
+query getAllSchool{
+    allSchool{
+        id
+        name
+        academics{
+            id
+            name
+        }
+    }
+}

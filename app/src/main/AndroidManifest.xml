@@ -16,7 +16,9 @@
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.activity.MainActivity">
+        <activity android:name=".view.activity.FirstActivity">
+        </activity>
+        <activity android:name=".view.activity.SchoolChoseActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -25,8 +27,7 @@
         </activity>
         <activity android:name=".view.activity.LoginActivity">
         </activity>
-        <activity android:name=".view.activity.FirstActivity">
-
+        <activity android:name=".view.activity.MainActivity">
         </activity>
     </application>
 

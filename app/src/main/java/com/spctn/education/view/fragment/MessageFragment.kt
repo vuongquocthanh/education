@@ -20,6 +20,7 @@ import com.spctn.education.base.BaseFragment
 import com.spctn.education.enum.MessageStatus
 import com.spctn.education.mvp.presenter.SmsMessagePresenter
 import com.spctn.education.mvp.view.SmsMessageViewPresenter
+import com.spctn.education.util.Constant
 import com.spctn.education.view.adapter.SmsMessageAdapter
 import com.spctn.education.view.dialog.ConfirmSendSMSDialog
 import kotlinx.android.synthetic.main.fragment_message.*
@@ -58,8 +59,28 @@ class MessageFragment : BaseFragment(), SmsMessageViewPresenter {
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         smsMessagePresenter.disapose()
+        super.onDestroyView()
+    }
+
+    private fun setEventClick() {
+//        ivMore.setOnClickListener { moreClick() }
+        btnSend.setOnClickListener { btSendClick() }
+        srlSmsMessage.setOnRefreshListener {
+            smsMessagesSelected.clear()
+            adapter.clearAllMessageSelected()
+            srlSmsMessage.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark)
+            loadSmsMessage()
+        }
+    }
+
+
+    // ---------------------------------- SmsMessageViewPresenter ----------------------------------
+
+    private fun loadSmsMessage() {
+        progressLoading?.show()
+        val academicID = tinyDB.getLong(Constant.ACADEMIC_ID, 0)
+        smsMessagePresenter.getSmsMessage(page!!, academicID)
     }
 
     override fun showSmsMessages(message: List<GetSmsMessagesQuery.Object>) {
@@ -81,23 +102,29 @@ class MessageFragment : BaseFragment(), SmsMessageViewPresenter {
         Toast.makeText(context!!, message, Toast.LENGTH_LONG).show()
     }
 
-    //--------------------------------------------------------------------------
 
-    private fun loadSmsMessage() {
-        progressLoading?.show()
-        smsMessagePresenter.getSmsMessage(page!!, 1)
+    // ---------------------------------- Class Event Functions ----------------------------------
+
+    private fun btSendClick() {
+        confirmSendSMSDialog = ConfirmSendSMSDialog(object : ConfirmSendSMSDialog.ConfirmSendSMSListener {
+            override fun btSendDialogClick() {
+                smsMessagesSelected.addAll(adapter.getAllMessageSelected())
+                if (smsMessagesSelected.size <= 0) {
+                    smsMessagesSelected.addAll(smsMessages)
+                }
+
+                for (i in 0 until smsMessagesSelected.size) {
+                    sendSMS(smsMessagesSelected[i].id(),smsMessagesSelected[i].phone()!!, smsMessagesSelected[i].content()!!)
+                }
+
+                smsMessagePresenter.updateMessagesStatus(ids, MessageStatus.XULY_THANHCONG.value)
+            }
+        })
+        confirmSendSMSDialog.show(activity!!.supportFragmentManager, "Dialog")
     }
 
-    private fun setEventClick() {
-//        ivMore.setOnClickListener { moreClick() }
-        btnSend.setOnClickListener { btSendClick() }
-        srlSmsMessage.setOnRefreshListener {
-            smsMessagesSelected.clear()
-            adapter.clearAllMessageSelected()
-            srlSmsMessage.setColorSchemeResources(R.color.colorAccent, R.color.colorPrimary, R.color.colorPrimaryDark)
-            loadSmsMessage()
-        }
-    }
+
+    // ---------------------------------- Class Functions ----------------------------------
 
     private fun checkPermission() {
         if (ContextCompat.checkSelfPermission(
@@ -130,21 +157,4 @@ class MessageFragment : BaseFragment(), SmsMessageViewPresenter {
 
     }
 
-    private fun btSendClick() {
-        confirmSendSMSDialog = ConfirmSendSMSDialog(object : ConfirmSendSMSDialog.ConfirmSendSMSListener {
-            override fun btSendDialogClick() {
-                smsMessagesSelected.addAll(adapter.getAllMessageSelected())
-                if (smsMessagesSelected.size <= 0) {
-                    smsMessagesSelected.addAll(smsMessages)
-                }
-
-                for (i in 0 until smsMessagesSelected.size) {
-                    sendSMS(smsMessagesSelected[i].id(),smsMessagesSelected[i].phone()!!, smsMessagesSelected[i].content()!!)
-                }
-
-                smsMessagePresenter.updateMessagesStatus(ids, MessageStatus.XULY_THANHCONG.value)
-            }
-        })
-        confirmSendSMSDialog.show(activity!!.supportFragmentManager, "Dialog")
-    }
 }
