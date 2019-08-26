@@ -9,16 +9,16 @@
 
     <application
             android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/img_school"
             android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
+            android:roundIcon="@drawable/img_school"
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true"
             tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".view.activity.FirstActivity">
-        </activity>
         <activity android:name=".view.activity.SchoolChoseActivity">
+        </activity>
+        <activity android:name=".view.activity.FirstActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

@@ -49,7 +49,7 @@ class LoginActivity : BaseActivity(), LoginViewPresenter {
             tinyDB.putString(Constant.PASS_WORD, password)
         }
 
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, SchoolChoseActivity::class.java))
     }
 
     override fun showError(message: String) {

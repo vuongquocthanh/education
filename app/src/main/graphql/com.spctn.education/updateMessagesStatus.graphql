@@ -1,5 +1,5 @@
-mutation updateMessagesStatus($ids: [ID], $status: String){
-    updatelistsmsstatus(ids: $ids, status: $status){
+mutation updateMessagesStatus($ids:[ID], $status:String){
+    updatelistsmsstatus(ids:$ids, status:$status){
         ok
     }
 }

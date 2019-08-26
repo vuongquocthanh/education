@@ -9,30 +9,40 @@
 
     <TextView
             android:layout_width="match_parent"
+            android:layout_height="@dimen/height_toolbar"
+            android:background="@color/colorPrimary"
+            android:text="Chọn niên khoá"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:elevation="4dp"/>
+
+    <TextView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Chọn trường học"
             android:padding="@dimen/margin_component"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorPrimary"
             android:textSize="@dimen/text_size_large"
-            android:textStyle="bold"/>
+            android:layout_marginTop="@dimen/margin_component"/>
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/rvSchool"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="200dp"/>
 
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Chọn niên khoá"
             android:padding="@dimen/margin_component"
-            android:textColor="@color/colorBlack"
-            android:textSize="@dimen/text_size_large"
-            android:textStyle="bold"/>
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/text_size_large"/>
 
     <android.support.v7.widget.RecyclerView
             android:id="@+id/rvSchoolYear"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="200dp"/>
 
 </LinearLayout>
